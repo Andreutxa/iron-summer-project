@@ -12,6 +12,7 @@ module.exports.doSocialLogin = (req, res, next) => {
     if (error) {
       next(error);
     } else {
+      console.log('new session!')
       req.session.userId = user._id;
       res.redirect("/");
     }
