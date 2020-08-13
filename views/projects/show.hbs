@@ -3,17 +3,20 @@
     {{>projects/projectcard project=project showDescription=true}}
   </div>
 
-  <div class="mb-3">
-    <a href="/projects/{{project._id}}/edit" class="btn btn-secondary">
-      <i class="fa fa-cog"></i>
-      Edit
-    </a>
+  {{#ifEquals project.author.email ../currentUser.email}}
+    <div class="mb-3">
+      <a href="/projects/{{project._id}}/edit" class="btn btn-secondary">
+        <i class="fa fa-cog"></i>
+        Edit
+      </a>
 
-    <a href="/projects/{{project._id}}/delete" class="btn btn-danger">
-      <i class="fa fa-trash"></i>
-      Delete
-    </a>
-  </div>
+      
+        <a href="/projects/{{project._id}}/delete" class="btn btn-danger">
+          <i class="fa fa-trash"></i>
+          Delete
+        </a>
+    </div>
+  {{/ifEquals}}
 
   <div id="comments">
     <h2>Comments</h2>
@@ -23,6 +26,7 @@
     {{#each project.comments as |comment|}}
       <div class="border-bottom mb-3 py-3">
         <p>{{comment.text}}</p>
+
         <small>
           Author:
           <a href="/users/{{comment.user._id}}">
@@ -30,6 +34,7 @@
             {{comment.user.name}}
           </a>
         </small>
+
         <small class="d-block">Date: {{date comment.createdAt}}</small>
 
         {{#ifEquals comment.user.email ../currentUser.email}}
