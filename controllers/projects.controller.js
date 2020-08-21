@@ -3,6 +3,7 @@ const User = require("../models/user.model")
 const Like = require("../models/like.model")
 const mongoose = require('mongoose')
 
+// GET /projects/:id
 module.exports.show = (req, res, next) => {
   Project.findById(req.params.id)
     .populate('author')
@@ -83,7 +84,11 @@ module.exports.create = (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.render("projects/new", { error: error.errors, project });
+        User.find({ staff: true })
+          .then(staffUsers => {
+            res.render('projects/new', { error: error.errors, project, staffUsers })
+          })
+          .catch(next) 
       } else {
         next(error);
       }

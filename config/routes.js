@@ -24,7 +24,7 @@ router.post('/projects', session.isAuthenticated, upload.single('image'), projec
 router.get('/projects/new', session.isAuthenticated, projectsController.new)
 router.get('/projects/:id', session.isAuthenticated, projectsController.show)
 router.get('/projects/:id/edit', session.isAuthenticated, projectsMiddleware.projectOwner, projectsController.edit)
-router.get('/projects/:id/delete', session.isAuthenticated, projectsMiddleware.projectOwner, projectsController.delete)
+router.post('/projects/:id/delete', session.isAuthenticated, projectsMiddleware.projectOwner, projectsController.delete)
 router.post('/projects/:id/edit', session.isAuthenticated, projectsMiddleware.projectOwner, upload.single('image'), projectsController.update)
 router.post('/projects/:id/like', session.isAuthenticated, projectsController.like)
 

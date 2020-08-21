@@ -113,6 +113,7 @@ module.exports.show = (req, res, next) => {
 module.exports.create = (req, res, next) => {
   const user = new User({
     ...req.body,
+    staff: false,
     avatar: req.file ? req.file.path : undefined
   });
 
